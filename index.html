@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxeDo</title>
+    
+    <!-- styles - font,icons etc -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Marck+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="./firebase.js"></script>
+    <script src="./main.js"></script>
+</head>
+<body>
+    <main>
+    <div class="container">
+        <div class="header">
+            <div class="app-name ">
+                <h1 class="signature">AxeDo</h1>
+            </div>
+            <!-- Screen theme- light or dark mode -->
+            <div class="light-theme">
+                <div class="mode">
+                    <img class="light" src="./assets/light-mode.png">
+                    <img class="dark" src="./assets/dark-mode.png">
+                    <span class="ball"></span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="new-list">
+            <div class="mark">
+                <div class="marked">
+                </div>
+            </div>
+            <!-- Creating a new todo  -->
+            <div class="new-input">
+                <form onsubmit="addTodo(event)">
+                    <input id="create-todo" type="text" placeholder="Create a new todo..." />
+                </form>
+            </div>
+        </div>
+
+        
+        <!-- todo Lists -->
+        <div class="todo-list-items">
+            <div class="todo-texts">
+                <div class="todo-text">
+                    <div class="mark">
+                        <div class="marked">
+                            <button  class="material-icons" >check</button>
+                            <!-- <img src="./assets/check-icon.png" alt=""> -->
+                        </div>
+                    </div>
+                    <div class="text-item">
+                        Water the flowers
+                    </div>
+                </div>
+                
+            </div>
+            <div class="texts-info">
+                <div class="remaining-todos">
+                    4 todos left
+                </div>
+                <div class="todo-ranking">
+                    <span class="select">All</span>
+                    <span>Live</span>
+                    <span>Fufilled</span>
+                </div>
+                <div class="clear-todos">
+                    <span>Clear Fufilled</span>
+                </div>
+            </div>
+        </div>
+    </div> 
+    </main>
+</body>
+</html>

@@ -1,0 +1,229 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-image: url("./assets/background-image.png");
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    width: 100%;
+    object-fit: cover;
+} 
+
+.light-theme{
+    height: 70px;
+    width: 100%;
+    font-size: 14px;
+    color: #1a1a23;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+}
+
+.mode img{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: relative;
+    /* justify-content: space-between; */
+    border-radius: 50px;
+    margin-left: 20px;
+    padding: end;
+}
+
+main{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+}
+
+.signature{
+    font-family: 'Marck Script', cursive;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0px 30px;
+    margin-top: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem ;
+}
+
+.app-name {
+    color: white;
+    font-weight: bold;
+}
+
+
+.app-name h1{
+    font-size: 50px;
+    font-weight: 500;
+    color: white;
+}
+
+button{
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.new-list{
+    background-color: #21212C;
+    height: 70px;
+    margin-top: 30px;
+    border-radius: 8px;
+    display: flex;
+}
+
+.new-list:hover,
+.new-list:focus-within{
+    outline: 2px solid white;
+    /* background-color: blue;  */
+}
+
+.mark{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.marked{
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    border: 2px solid #666697;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.marked button{
+    visibility: hidden;
+}
+
+.marked:hover, .marked.checked{
+    background: linear-gradient(135deg,#5bff55 0%,#f3e958 100%);
+}
+
+.marked:hover button, .marked.checked button{
+    visibility: visible;
+}
+
+.text-item.checked{
+    text-decoration: line-through;
+    color: #606462;
+}
+
+.new-input{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.new-input form{
+    flex-grow: 1;
+    
+}
+
+.new-input input{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #CACDE8
+}
+
+.new-input input::placeholder{
+    color: #4D5066
+}
+
+.new-input.done{
+    opacity: 0.7;
+}
+
+/* .new-input.done input[type="text"]{
+    text-decoration: line-through;
+} */
+.text-item{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: 	#eeeeee;
+}
+
+.todo-text{
+    width: 100%;
+    height: 70px;
+    font-size: 18px;
+    background-color: #21212C;
+    display: flex;
+    border-bottom: 1px solid #393A4C;
+    cursor: pointer;
+    transition: all .25s ease;
+    /* transition-property: box-shadow, transform, border-color; */
+}
+
+.todo-text:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0px 7px 0px #161722;
+    border-color: #25273c;
+}
+
+.todo-list-items{
+    margin-top: 30px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #25273C;
+    box-shadow: 0px 2px 20px 0px #0a0a0a;
+    margin-bottom: 30px;
+}
+
+.texts-info{
+    height: 70px;
+    width: 100%;
+    font-size: 14px;
+    color: #1a1a23;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+}
+
+.todo-ranking{
+    display: flex;
+    justify-content: center;
+}
+
+.todo-ranking span{
+    padding: 0 6px;
+    cursor: pointer;
+}
+
+.todo-ranking span:hover, .todo-ranking span.select, .clear-todos:hover{
+    color: #40fd3a;
+}
+
+.clear-todos{
+    cursor: pointer;
+    text-align: end;
+}
