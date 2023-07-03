@@ -78,10 +78,20 @@ function actionListeners() {
     clearBtn.addEventListener("click", function () {
       clearCompletedTodos();
     });
+
+    //light mode button listener
+    document.querySelector('.light').addEventListener('click', function () {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+    });
+
+    // Dark mode button listener
+    document.querySelector('.dark').addEventListener('click', function () {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+    });
   }
   
-  
-
 
 function markDone(id){
     let todo=db.collection("todo-items").doc(id)
@@ -104,11 +114,7 @@ function markDone(id){
     // console.log(id);
 }
 
-
-// function deleteTodo(id) {
-//     db.collection("todo-items").doc(id).delete();
-//   }
-
+// delete todo
 function deleteTodo(id) {
     db.collection("todo-items")
       .doc(id)
@@ -121,7 +127,7 @@ function deleteTodo(id) {
       });
   }
   
-  
+//   delete completed todos
   function clearCompletedTodos() {
     db.collection("todo-items")
       .where("rank", "==", "fufilled")
