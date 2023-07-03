@@ -202,7 +202,7 @@ button{
     height: 70px;
     width: 100%;
     font-size: 14px;
-    color: #1a1a23;
+    color: #8585b3;
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
@@ -223,17 +223,24 @@ button{
     color: #40fd3a;
 }
 
-.delBtn button{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.actions button{
+    color: #ccc;
+    margin-right: 10rem;
+    opacity: 0.6;
+    transform: 0.1s;
+    padding: 1.5rem;
+    
+    /* border-radius: 1rem; */
 }
 
-.delBtn:hover{
+.actions button.delBtn{
     color: red;
 }
 
-.clear-todos{
-    cursor: pointer;
-    text-align: end;
+.actions button:hover{
+    opacity: 1;
+}
+
+.actions button:last-of-type{
+    margin-right: 0;
 }

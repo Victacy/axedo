@@ -36,7 +36,10 @@ function generateTodos(items) {
             <div class="text-item ${item.rank == "fufilled" ? "checked":""}">
                 ${item.text}
             </div>
+            <div class="actions">
             <button class="delBtn" onclick="deleteTodo('${item.id}')">Delete</button>
+            </div>
+            
     </div>
         `
   })
@@ -70,6 +73,11 @@ function actionListeners() {
         }
       });
     });
+
+    let clearBtn = document.querySelector(".clear-todos span");
+    clearBtn.addEventListener("click", function () {
+      clearCompletedTodos();
+    });
   }
   
   
@@ -97,10 +105,36 @@ function markDone(id){
 }
 
 
-function deleteTodo(id) {
-    db.collection("todo-items").doc(id).delete();
-  }
+// function deleteTodo(id) {
+//     db.collection("todo-items").doc(id).delete();
+//   }
 
+function deleteTodo(id) {
+    db.collection("todo-items")
+      .doc(id)
+      .delete()
+      .then(function () {
+        console.log("Todo deleted successfully!");
+      })
+      .catch(function (error) {
+        console.error("Error deleting todo: ", error);
+      });
+  }
+  
+  
+  function clearCompletedTodos() {
+    db.collection("todo-items")
+      .where("rank", "==", "fufilled")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.delete();
+        });
+      })
+      .catch(function (error) {
+        console.error("Error removing completed todos: ", error);
+      });
+  }
   
 
 getTodos();

@@ -64,7 +64,10 @@
                     <div class="text-item">
                         Water the flowers
                     </div>
-                    <button class="delBtn" onclick="deleteTodo('${item.id}')">Delete</button>
+                    <div class="actions">
+                       <button class="delBtn" onclick="deleteTodo('${item.id}')">Delete</button> 
+                    </div>
+                    
                 </div>
                 
             </div>
@@ -78,7 +81,7 @@
                     <span>Fufilled</span>
                 </div>
                 <div class="clear-todos">
-                    <span>Clear Fufilled</span>
+                    <span onclick="clearCompletedTodos()">Clear Fufilled</span>
                 </div>
             </div>
         </div>
