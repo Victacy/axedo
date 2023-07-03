@@ -1,32 +1,3 @@
-body.light-mode {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-body.dark-mode {
-    background-color: #333333;
-    color: #ffffff;
-}
-
-.mode .ball {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    top: 4px;
-    left: 4px;
-    transition: transform 0.3s ease-in-out;
-}
-
-body.light-mode .ball {
-    transform: translateX(0);
-}
-
-body.dark-mode .ball {
-    transform: translateX(24px);
-}
-
 *{
     margin: 0;
     padding: 0;
@@ -34,39 +5,50 @@ body.dark-mode .ball {
     font-family: 'Poppins', sans-serif;
 }
 
-body.light-mode {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  body.dark-mode {
-    background-color: #333333;
-    color: #ffffff;
-  }
-  
-body{
-    /* background-image: url("./assets/background-image.png"); */
+.back-image {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    color: white;
+    max-height: 350px;
+    z-index: -1;
+}
+
+.back-image img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
-} 
+    object-position: left;
+}
+
+body {
+    background-image: url("./assets/bg-desktop-dark.jpg");
+    position: absolute;
+    height: 30%;
+    top: 0;
+    left: 0;
+    right: 0;
+    object-fit: cover;
+    object-position: left;
+    background-color: #161722;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
 
 .mode img{
-    width: 24px;
-    height: 24px;
+    /* width: 24px;
+    height: 24px; */
     cursor: pointer;
 }
 
-main{
+/* main{
     min-height: 100vh;
     display: flex;
     justify-content: center;
     padding: 2rem 1.5rem;
-}
+} */
 
 .signature{
     font-family: 'Marck Script', cursive;
@@ -77,6 +59,7 @@ main{
     max-width: 700px;
     margin: 0px 30px;
     margin-top: 10px;
+    /* z-index: 2; */
 }
 
 .header {
@@ -89,6 +72,7 @@ main{
 .app-name {
     color: white;
     font-weight: bold;
+    /* z-index: 1; */
 }
 
 
@@ -109,6 +93,7 @@ button{
 .new-list{
     background-color: #21212C;
     height: 70px;
+    width: 100%;
     margin-top: 30px;
     border-radius: 8px;
     display: flex;
@@ -159,10 +144,13 @@ button{
     flex-grow: 1;
     display: flex;
     align-items: center;
+    /* z-index: 1; */
 }
 
 .new-input form{
     flex-grow: 1;
+    display: flex;
+    /* z-index: 3; */
     
 }
 
@@ -178,7 +166,7 @@ button{
 }
 
 .new-input input::placeholder{
-    color: #4D5066
+    color: #4D5066;
 }
 
 .new-input.done{
@@ -204,7 +192,7 @@ button{
     border-bottom: 1px solid #393A4C;
     cursor: pointer;
     transition: all .25s ease;
-    /* transition-property: box-shadow, transform, border-color; */
+    transition-property: box-shadow, transform, border-color;
 }
 
 .todo-text:hover{

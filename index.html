@@ -21,6 +21,9 @@
 </head>
 <body>
     <main>
+        <div class="back-image">
+            <img src="./assets/bg-desktop-dark.jpg" alt="">
+        </div>
     <div class="container">
         <div class="header">
             <div class="app-name ">
@@ -28,9 +31,7 @@
             </div>
             <!-- Screen theme- light or dark mode -->
             <div class="mode">
-                <img class="light" src="./assets/light-mode.png">
-                <img class="dark" src="./assets/dark-mode.png">
-                <span class="ball"></span>
+                <img src="assets/icon-sun.svg">
             </div>
             
         </div>
@@ -74,10 +75,11 @@
                     4 todos left
                 </div>
                 <div class="todo-ranking">
-                    <span class="select">All</span>
-                    <span>Live</span>
-                    <span>Fufilled</span>
-                </div>
+                    <span id="filter-all" class="select">All</span>
+                    <span id="filter-live">Live</span>
+                    <span id="filter-fulfilled">Fulfilled</span>
+                  </div>
+                  
                 <div class="clear-todos">
                     <span onclick="clearCompletedTodos()">Clear Fufilled</span>
                 </div>
