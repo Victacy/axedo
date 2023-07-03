@@ -1,3 +1,7 @@
+// Declare a variable to store the current filter type
+let currentFilter = "all";
+
+
 function addTodo(event) {
   event.preventDefault();
   let text = document.getElementById("create-todo");
@@ -25,7 +29,8 @@ function getTodos() {
 function generateTodos(items) {
   let dosHTML = "";
   items.forEach((item) => {
-    dosHTML += `
+    if (currentFilter === "all" || currentFilter === item.rank) {
+       dosHTML += `
         <div class="todo-text" draggable="true" data-id="${item.id}">
             <div class="mark">
                 <div data-id="${item.id}" class="marked ${item.rank == "completed" ? "checked":""}">
@@ -42,6 +47,8 @@ function generateTodos(items) {
             
     </div>
         `
+    }
+   
   })
   
 
@@ -83,22 +90,6 @@ function actionListeners() {
       clearCompletedTodos();
     });
 
-    // filter todo
-    let filterAll = document.getElementById("filter-all");
-    let filterActive = document.getElementById("filter-active");
-    let filterComplete = document.getElementById("filter-complete");
-  
-    filterAll.addEventListener("click", function () {
-      filterTodos("all");
-    });
-  
-    filterActive.addEventListener("click", function () {
-      filterTodos("active");
-    });
-  
-    filterComplete.addEventListener("click", function () {
-      filterTodos("completed");
-    });
   }
 
 
@@ -124,21 +115,6 @@ function drop(event) {
 
 
 
-function filterTodos(filter) {
-  db.collection("todo-items")
-    .where("rank", "==", filter === "complete" ? "completed" : "acy=tive")
-    .onSnapshot((snapshot) => {
-      console.log(snapshot);
-      let items = [];
-      snapshot.docs.forEach((doc) => {
-        items.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      generateTodos(items);
-    });
-}
   
 
 // function markDone(id){
@@ -218,7 +194,7 @@ function deleteTodo(id) {
 //   delete completed
   function clearCompletedTodos() {
     db.collection("todo-items")
-      .where("rank", "==", "fufilled")
+      .where("rank", "==", "completed")
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -231,6 +207,10 @@ function deleteTodo(id) {
   }
   
 
-
+  
+function filterTodos(filterType) {
+  currentFilter = filterType;
+  getTodos();
+}
 
 getTodos();

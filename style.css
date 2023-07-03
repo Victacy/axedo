@@ -245,8 +245,9 @@ button{
     padding: 1.5rem;
 }
 
-.actions button.delBtn{
+.actions button .delBtn{
     color: #21212C;
+    visibility: hidden;
 }
 
 .actions button:hover{

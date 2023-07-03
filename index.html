@@ -76,10 +76,11 @@
                     4 todos left
                 </div>
                 <div class="todo-ranking">
-                    <span id="filter-all" class="select">All</span>
-                    <span id="filter-active">Active</span>
-                    <span id="filter-completed">Completed</span>
+                    <span class="select" onclick="filterTodos('all')">All</span>
+                    <span onclick="filterTodos('active')">Active</span>
+                    <span onclick="filterTodos('completed')">Completed</span>
                   </div>
+                  
                   
                 <div class="clear-todos">
                     <span onclick="clearCompletedTodos()">Clear Fufilled</span>
