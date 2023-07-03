@@ -36,6 +36,7 @@ function generateTodos(items) {
             <div class="text-item ${item.rank == "fufilled" ? "checked":""}">
                 ${item.text}
             </div>
+            <button class="delBtn" onclick="deleteTodo('${item.id}')">Delete</button>
     </div>
         `
   })
@@ -46,15 +47,32 @@ function generateTodos(items) {
 }
 
 
-function actionListeners() {
-    let doChecker=document.querySelectorAll(".todo-text .marked");
-    doChecker.forEach((checker) =>{
-        checker.addEventListener("click",function(){
-            markDone(checker.dataset.id);
-        })
-    })
+// function actionListeners() {
+//     let doChecker=document.querySelectorAll(".todo-text .marked");
+//     doChecker.forEach((checker) =>{
+//         checker.addEventListener("click",function(){
+//             markDone(checker.dataset.id);
+//         })
+//     })
     
-}
+// }
+
+function actionListeners() {
+    let doChecker = document.querySelectorAll(".todo-text .marked");
+    doChecker.forEach((checker) => {
+      checker.addEventListener("click", function (event) {
+        const deleteButton = event.target.closest(".delBtn");
+        if (deleteButton) {
+          const id = deleteButton.parentNode.dataset.id;
+          deleteTodo(id);
+        } else {
+          markDone(checker.dataset.id);
+        }
+      });
+    });
+  }
+  
+  
 
 
 function markDone(id){
@@ -77,5 +95,12 @@ function markDone(id){
 
     // console.log(id);
 }
+
+
+function deleteTodo(id) {
+    db.collection("todo-items").doc(id).delete();
+  }
+
+  
 
 getTodos();

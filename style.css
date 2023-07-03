@@ -223,6 +223,16 @@ button{
     color: #40fd3a;
 }
 
+.delBtn button{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.delBtn:hover{
+    color: red;
+}
+
 .clear-todos{
     cursor: pointer;
     text-align: end;
