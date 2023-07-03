@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
 }
 
 .back-image {
@@ -50,9 +51,9 @@ body {
     padding: 2rem 1.5rem;
 } */
 
-.signature{
+/* .signature{
     font-family: 'Marck Script', cursive;
-}
+} */
 
 .container {
     width: 100%;
@@ -67,6 +68,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem ;
+    margin-top: 50px;
 }
 
 .app-name {
@@ -244,7 +246,7 @@ button{
 }
 
 .actions button.delBtn{
-    color: red;
+    color: #21212C;
 }
 
 .actions button:hover{
