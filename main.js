@@ -34,15 +34,14 @@ function generateTodos(items) {
         <div class="todo-text" draggable="true" data-id="${item.id}">
             <div class="mark">
                 <div data-id="${item.id}" class="marked ${item.rank == "completed" ? "checked":""}">
-                    <button  class="material-icons" >check</button>
-                    <!-- <img src="./assets/check-icon.png" alt=""> -->
+                <img src="./assets/icon-check.svg" class="chckbtn" alt="">
                 </div>
             </div>
             <div class="text-item ${item.rank == "completed" ? "checked":""}">
                 ${item.text}
             </div>
             <div class="actions">
-            <button class="delBtn" onclick="deleteTodo('${item.id}')">Delete</button>
+            <button class="material-icons delBtn" onclick="deleteTodo('${item.id}')">delete</button>
             </div>
             
     </div>

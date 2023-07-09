@@ -80,7 +80,6 @@ This project is licensed under the [MIT License](https://github.com/Victacy/axed
 If you have any questions or feedback, feel free to reach out to the project owner:
 
 - GitHub: [Victacy](https://github.com/Victacy)
-- Email: [victacy@example.com](mailto:victacy@example.com)
 
 ---
 

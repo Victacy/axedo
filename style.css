@@ -115,8 +115,8 @@ button{
 }
 
 .marked{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 3px;
     border: 2px solid #666697;
     cursor: pointer;
@@ -125,19 +125,12 @@ button{
     align-items: center;
     justify-content: center;
 }
-.marked button{
-    visibility: hidden;
-}
 
-.marked:hover, .marked.checked{
+.marked:hover, .marked.chckbtn{
     background: linear-gradient(135deg,#5bff55 0%,#f3e958 100%);
 }
 
-.marked:hover button, .marked.checked button{
-    visibility: visible;
-}
-
-.text-item.checked{
+.text-item.chckbtn{
     text-decoration: line-through;
     color: #606462;
 }
@@ -237,22 +230,40 @@ button{
     color: #40fd3a;
 }
 
-.actions button{
-    color: #ccc;
-    margin-right: 10rem;
-    opacity: 0.6;
-    transform: 0.1s;
-    padding: 1.5rem;
+.actions{
+    display: flex;
+    gap: 75px;
 }
-
-.actions button .delBtn{
-    color: #21212C;
+.chckbtn{
     visibility: hidden;
 }
 
-.actions button:hover{
-    opacity: 1;
+.chckbtn:hover{
+    visibility: visible;
+    color: white;
 }
+
+.delBtn{
+    /* color: #21212C; */
+    margin: 0 0.75rem;
+    padding: 1.5rem;
+    background: none;
+    outline: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.delBtn:hover{
+    color: red;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* .actions button:hover{
+    opacity: 1;
+} */
 
 .actions button:last-of-type{
     margin-right: 0;
