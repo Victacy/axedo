@@ -26,9 +26,24 @@ body {
     object-position: left;
 }
 
-.mode img {
+/* Dark Mode */
+body.dark-mode {
+    background-color: #161722;
+    color: white;
+  }
+  
+  /* Light Mode */
+  body.light-mode {
+    background-color: #ffffff;
+    color: black;
+  }
+  
+  /* Toggle Mode Button */
+  .mode img {
     cursor: pointer;
-}
+    /* filter: invert(1); */
+  }
+  
 
 .container {
     width: 100%;
@@ -47,12 +62,15 @@ body {
 
 .app-name {
     color: white;
-    letter-spacing: 6px;
-    font-size: 25px;
+    letter-spacing: 10px;
     font-weight: bold;
 }
 
-
+.app-name h1 {
+    font-size: 50px;
+    font-weight: 500;
+    color: white;
+}
 
 button {
     appearance: none;
@@ -211,7 +229,7 @@ button {
     color: #40fd3a;
 }
 
-/* .actions {
+.actions {
     display: flex;
     gap: 75px;
     margin: 0 0.75rem;
@@ -228,29 +246,84 @@ button {
 
 .actions button:last-of-type {
     margin-right: 0;
-} *//* ...existing styles... */
+}
 
-.actions {
-    display: flex;
-    gap: 75px;
-    margin: 0 0.75rem;
-    padding: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .actions:hover {
-    color: red;
-    cursor: pointer;
-  }
-  
-  .actions img {
-    filter: invert(1); /* Add this line to make the delete icon white */
-  }
-  
-  .actions img:hover {
-    filter: none; /* Remove the filter on hover to turn the delete icon red */
-  }
-  
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 50px;
+    }
 
+    .app-name h1 {
+        font-size: 36px;
+    }
 
+    .new-list {
+        height: 60px;
+    }
 
+    .new-input input {
+        font-size: 18px;
+    }
+
+    .text-item {
+        font-size: 16px;
+    }
+
+    .texts-info {
+        font-size: 12px;
+    }
+
+    .todo-ranking span {
+        padding: 0 4px;
+    }
+
+    .actions {
+        padding: 1rem;
+    }
+    
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        margin-top: 30px;
+        padding: 0 10px;
+    }
+
+    .header {
+        margin-bottom: 0.5rem;
+    }
+
+    .app-name h1 {
+        font-size: 30px;
+    }
+
+    .new-list {
+        height: 50px;
+    }
+
+    .new-input input {
+        font-size: 16px;
+    }
+
+    .text-item {
+        font-size: 14px;
+    }
+
+    .todo-text {
+        height: 60px;
+    }
+
+    .texts-info {
+        height: 60px;
+        font-size: 10px;
+        padding: 0 10px;
+    }
+
+    .todo-ranking span {
+        padding: 0 2px;
+    }
+
+    .actions {
+        padding: 0.5rem;
+    }
+}

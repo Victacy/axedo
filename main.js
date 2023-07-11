@@ -219,4 +219,18 @@ function filterTodos(filterType) {
   getTodos();
 }
 
+function toggleMode() {
+  const body = document.querySelector("body");
+  const modeButton = document.querySelector(".mode img");
+
+  body.classList.toggle("dark-mode");
+
+  if (body.classList.contains("dark-mode")) {
+    modeButton.src = "assets/icon-sun.svg";
+  } else {
+    modeButton.src = "assets/icon-moon.svg";
+  }
+}
+
+
 getTodos();
