@@ -1,7 +1,3 @@
-// Declare a variable to store the current filter type
-let currentFilter = "all";
-
-
 function addTodo(event) {
   event.preventDefault();
   let text = document.getElementById("create-todo");
@@ -14,7 +10,6 @@ function addTodo(event) {
 
 function getTodos() {
   db.collection("todo-items").onSnapshot((snapshot) => {
-    console.log(snapshot);
     let items = [];
     snapshot.docs.forEach((doc) => {
       items.push({
@@ -27,115 +22,128 @@ function getTodos() {
 }
 
 function generateTodos(items) {
-  let dosHTML = "";
+  let todosHTML = "";
   items.forEach((item) => {
-    if (currentFilter === "all" || currentFilter === item.rank) {
-       dosHTML += `
+    todosHTML += `
         <div class="todo-text" draggable="true" data-id="${item.id}">
             <div class="mark">
                 <div data-id="${item.id}" class="marked ${item.rank == "completed" ? "checked":""}">
-                <img src="./assets/icon-check.svg" class="chckbtn" alt="">
+                    <img src="./assets/icon-check.svg" alt="">
                 </div>
             </div>
             <div class="text-item ${item.rank == "completed" ? "checked":""}">
                 ${item.text}
             </div>
-            <div class="actions">
-            <button class="material-icons delBtn" onclick="deleteTodo('${item.id}')">delete</button>
+            <div class="actions "> 
+                <img src="./assets/icon-delete.svg" alt="" onclick="deleteTodo('${item.id}')">
             </div>
-            
-    </div>
-        `
-    }
-   
-  })
-  
+        </div>
+    `;
+  });
 
-  document.querySelector(".todo-texts").innerHTML= dosHTML; 
+  document.querySelector(".todo-texts").innerHTML = todosHTML;
+  dragListeners()
   actionListeners();
 }
 
-
-// function actionListeners() {
-//     let doChecker=document.querySelectorAll(".todo-text .marked");
-//     doChecker.forEach((checker) =>{
-//         checker.addEventListener("click",function(){
-//             markDone(checker.dataset.id);
-//         })
-//     })
-    
-// }
-
-function actionListeners() {
-    let doChecker = document.querySelectorAll(".todo-text .marked");
-    doChecker.forEach((checker) => {
-      checker.addEventListener("click", function (event) {
-        const deleteButton = event.target.closest(".delBtn");
-        if (deleteButton) {
-          const id = deleteButton.parentNode.dataset.id;
-          deleteTodo(id);
-        } else {
-          markDone(checker.dataset.id);
-        }
-      });
-      checker.addEventListener("dragstart", dragStart);
-      checker.addEventListener("dragover", dragOver);
-      checker.addEventListener("drop", drop);
-    });
-    
-    // clear todo
-    let clearBtn = document.querySelector(".clear-todos span");
-    clearBtn.addEventListener("click", function () {
-      clearCompletedTodos();
-    });
-
-  }
-
-
-  // Drag start event handler
-function dragStart(event) {
-  event.dataTransfer.setData("text/plain", event.target.dataset.id);
+function dragListeners() {
+  const todoTexts = document.querySelectorAll('.todo-text');
+  todoTexts.forEach((todoText) => {
+    todoText.addEventListener('dragstart', dragStart);
+    todoText.addEventListener('dragover', dragOver);
+    todoText.addEventListener('dragenter', dragEnter);
+    todoText.addEventListener('dragleave', dragLeave);
+    todoText.addEventListener('drop', drop);
+    todoText.addEventListener('dragend', dragEnd);
+  });
 }
 
-// Drag over event handler
+let draggedItem;
+
+function dragStart(event) {
+  draggedItem = this;
+  setTimeout(() => {
+    this.style.display = 'none';
+  }, 0);
+}
+
 function dragOver(event) {
   event.preventDefault();
 }
 
-// Drop event handler
-function drop(event) {
+function dragEnter(event) {
   event.preventDefault();
-  const droppedItemId = event.dataTransfer.getData("text/plain");
-  const targetItemId = event.currentTarget.dataset.id;
-
-  // Swap the ranks of the dropped item and the target item
-  swapRanks(droppedItemId, targetItemId);
+  this.style.borderTop = '2px solid #55DDFF';
 }
 
+function dragLeave() {
+  this.style.borderTop = 'none';
+}
 
+function drop() {
+  const targetItem = this;
+  const targetIndex = getIndex(targetItem);
+  const draggedIndex = getIndex(draggedItem);
 
-  
+  if (targetItem === draggedItem) {
+    return;
+  }
 
-// function markDone(id){
-//     let todo=db.collection("todo-items").doc(id)
+  const todoItems = Array.from(document.querySelectorAll('.todo-text'));
+  const targetItemDataId = targetItem.dataset.id;
+  const draggedItemDataId = draggedItem.dataset.id;
+  const targetTodoItem = todoItems.find((item) => item.dataset.id === targetItemDataId);
+  const draggedTodoItem = todoItems.find((item) => item.dataset.id === draggedItemDataId);
 
-//     todo.get().then(function(doc){
-//         if (doc.exists) {
-//             let rank=doc.data().rank;
-//             if(rank == "live"){
-//                 todo.update({
-//                     rank:"fufilled"
-//                 })
-//             }else if(rank == "fufilled"){
-//                 todo.update({
-//                     rank:"live"
-//                 })
-//             }
-//         }
-//     })
+  if (targetIndex < draggedIndex) {
+    this.parentNode.insertBefore(draggedItem, targetItem.nextSibling);
+    todoItems.splice(draggedIndex, 1);
+    todoItems.splice(targetIndex + 1, 0, draggedTodoItem);
+  } else {
+    this.parentNode.insertBefore(draggedItem, targetItem);
+    todoItems.splice(draggedIndex, 1);
+    todoItems.splice(targetIndex, 0, draggedTodoItem);
+  }
 
-//     // console.log(id);
-// }
+  const reorderedItems = todoItems.map((item, index) => ({
+    id: item.dataset.id,
+    rank: 'active',
+    order: index + 1,
+  }));
+
+  todoItems.forEach((item, index) => {
+    const itemId = item.dataset.id;
+    db.collection('todo-items').doc(itemId).update({
+      order: index + 1,
+    });
+  });
+
+  this.style.borderTop = 'none';
+}
+
+function dragEnd() {
+  this.style.display = 'flex';
+}
+
+function actionListeners() {
+  let doChecker = document.querySelectorAll('.todo-text .marked');
+  doChecker.forEach((checker) => {
+    checker.addEventListener('click', function (event) {
+      const deleteButton = event.target.closest('.delBtn');
+      if (deleteButton) {
+        const id = deleteButton.parentNode.dataset.id;
+        deleteTodo(id);
+      } else {
+        markDone(checker.dataset.id);
+      }
+    });
+  });
+
+  let clearBtn = document.querySelector('.clear-todos span');
+  clearBtn.addEventListener('click', function () {
+    clearCompletedTodos();
+  });
+}
 
 function markDone(id) {
   let todo = db.collection("todo-items").doc(id);
@@ -154,9 +162,8 @@ function markDone(id) {
       }
     }
   });
-  
-  // Call the swapRanks function
-  swapRanks(id, null); // passing null as the target ID indicates that it is the last item in the list
+
+  swapRanks(id, null);
 }
 
 function swapRanks(droppedItemId, targetItemId) {
@@ -165,48 +172,48 @@ function swapRanks(droppedItemId, targetItemId) {
   todosRef.doc(droppedItemId).get().then((droppedItemDoc) => {
     const droppedRank = droppedItemDoc.data().rank;
     
-    // Update the dropped item's rank to the target item's rank
     todosRef.doc(droppedItemId).update({ rank: targetItemId ? "active" : "completed" });
 
-    // Update the target item's rank to the dropped item's rank
     if (targetItemId) {
       todosRef.doc(targetItemId).update({ rank: droppedRank });
     }
   });
 }
 
-
-
-// delete todo
 function deleteTodo(id) {
-    db.collection("todo-items")
-      .doc(id)
-      .delete()
-      .then(function () {
-        console.log("Todo deleted successfully!");
-      })
-      .catch(function (error) {
-        console.error("Error deleting todo: ", error);
-      });
-  }
-  
-//   delete completed
-  function clearCompletedTodos() {
-    db.collection("todo-items")
-      .where("rank", "==", "completed")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          doc.ref.delete();
-        });
-      })
-      .catch(function (error) {
-        console.error("Error removing completed todos: ", error);
-      });
-  }
-  
+  db.collection("todo-items")
+    .doc(id)
+    .delete()
+    .then(function () {
+      console.log("Todo deleted successfully!");
+    })
+    .catch(function (error) {
+      console.error("Error deleting todo: ", error);
+    });
+}
 
-  
+function clearCompletedTodos() {
+  db.collection("todo-items")
+    .where("rank", "==", "completed")
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        doc.ref.delete();
+      });
+    })
+    .catch(function (error) {
+      console.error("Error removing completed todos: ", error);
+    });
+}
+
+function getIndex(element) {
+  let index = 0;
+  while ((element = element.previousElementSibling)) {
+    index++;
+  }
+  return index;
+}
+
 function filterTodos(filterType) {
   currentFilter = filterType;
   getTodos();

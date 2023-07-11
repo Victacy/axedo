@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AxeDo</title>
     
-    <!-- styles - font,icons etc -->
+    <!-- styles - font, icons, etc -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,73 +22,55 @@
 </head>
 <body>
     <main>
-        <div class="back-image">
+        <div class="background-image">
             <img src="./assets/bg-desktop-dark.jpg" alt="">
         </div>
-    <div class="container">
-        <div class="header">
-            <div class="app-name ">
-                <h1 class="signature">ToDo</h1>
-            </div>
-            <!-- Screen theme- light or dark mode -->
-            <div class="mode">
-                <img src="assets/icon-sun.svg">
-            </div>
-            
-        </div>
-
-        <div class="new-list">
-            <div class="mark">
-                <div class="marked">
+        <div class="container">
+            <div class="header">
+                <div class="app-name ">
+                    <h1 class="signature">TODO</h1>
                 </div>
-            </div>
-            <!-- Creating a new todo  -->
-            <div class="new-input">
-                <form onsubmit="addTodo(event)">
-                    <input id="create-todo" type="text" placeholder="Create a new todo..." />
-                </form>
-            </div>
-        </div>
-
-        
-        <!-- todo Lists -->
-        <div class="todo-list-items">
-            <div class="todo-texts">
-                <div class="todo-text" >
-                    <div class="mark">
-                        <div class="marked">
-                            <!-- <button  class="material-icons" >check</button> -->
-                            <img src="./assets/icon-check.svg" class="chckbtn" alt="">
-                        </div>
-                    </div>
-                    <div class="text-item">
-                        Water the flowers
-                    </div>
-                    <!-- class="actions" -->
-                    <div class="actions "> 
-                       <button class="material-icons delBtn" onClick="deleteTodo('${item.id}')">delete</button> 
-                    </div>
-                    
+                <!-- Screen theme - light or dark mode -->
+                <div class="mode">
+                    <img src="assets/icon-sun.svg">
                 </div>
                 
             </div>
-            <div class="texts-info">
-                <div class="remaining-todos">
-                    4 todos left
+
+            <div class="new-list">
+                <div class="mark">
+                    <div class="marked">
+                    </div>
                 </div>
-                <div class="todo-ranking">
-                    <span class="select" onclick="filterTodos('all')">All</span>
-                    <span onclick="filterTodos('active')">Active</span>
-                    <span onclick="filterTodos('completed')">Completed</span>
-                  </div>
-                  
-                  
-                <div class="clear-todos">
-                    <span onclick="clearCompletedTodos()">Clear Completed</span>
+                <!-- Creating a new todo  -->
+                <div class="new-input">
+                    <form onsubmit="addTodo(event)">
+                        <input id="create-todo" type="text" placeholder="Create a new todo..." />
+                    </form>
                 </div>
             </div>
-        </div>
-    </div> 
+
+            
+            <!-- todo Lists -->
+            <div class="todo-list-items">
+                <div class="todo-texts">
+                    <!-- Dynamic todos will be generated here -->
+                </div>
+                <div class="texts-info">
+                    <div class="remaining-todos">
+                        4 todos left
+                    </div>
+                    <div class="todo-ranking">
+                        <span class="select" onclick="filterTodos('all')">All</span>
+                        <span onclick="filterTodos('active')">Active</span>
+                        <span onclick="filterTodos('completed')">Completed</span>
+                    </div>
+                    <div class="clear-todos">
+                        <span onclick="clearCompletedTodos()">Clear Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </main>
     
 </body>
