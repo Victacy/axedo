@@ -10,19 +10,6 @@ body {
     font-size: 18px;
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background-color: #161722;
-    color: white;
-  }
-  
-  /* Light Mode */
-  body.light-mode {
-    background-color: #ffffff;
-    color: black;
-  }
-  
-
 .background-image {
     position: absolute;
     top: 0;
@@ -44,10 +31,11 @@ body.dark-mode {
 }
 
 .container {
-    width: 100%;
+    /* width: 100%; */
+    height: 100%;
     max-width: 700px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 90px;
     padding: 0 20px;
 }
 
@@ -178,8 +166,12 @@ button {
     color: #4d5066;
 }
 
+.todo-texts {
+    white-space: nowrap;
+}
+
 .todo-text {
-    width: 100%;
+    /* width: 100%; */
     height: 70px;
     font-size: 18px;
     background-color: #21212C;
@@ -198,17 +190,21 @@ button {
 }
 
 .todo-list-items {
+    max-width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
     margin-top: 30px;
     border-radius: 6px;
-    overflow: hidden;
     background-color: #25273C;
     box-shadow: 0px 2px 20px 0px #0a0a0a;
     margin-bottom: 30px;
 }
 
+
 .texts-info {
     height: 70px;
     width: 100%;
+    border-radius: 5px;
     font-size: 14px;
     color: #8585b3;
     display: flex;
@@ -230,7 +226,7 @@ button {
 .todo-ranking span:hover,
 .todo-ranking span.select,
 .clear-todos:hover {
-    color: #40fd3a;
+    color: #3A7CFD;
 }
 
 .clear-todos {

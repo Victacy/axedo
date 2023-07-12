@@ -9,10 +9,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Marck+Script&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <!-- theme -->
+    <link rel="stylesheet" href="light-mode.css" id="theme-style">
+
+    
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -20,7 +23,7 @@
     <script src="./firebase.js"></script>
     <script src="./main.js"></script>
 </head>
-<body class="dark-mode">
+<body id="body" class="dark-mode">
     <main>
         <div class="background-image">
             <img src="./assets/bg-desktop-dark.jpg" alt="">
@@ -57,18 +60,19 @@
                 <div class="todo-texts">
                     <!-- Dynamic todos will be generated here -->
                 </div>
-                <div class="texts-info">
-                    <div class="remaining-todos">
-                        4 todos left
-                    </div>
-                    <div class="todo-ranking">
-                        <span class="select" onclick="filterTodos('all')">All</span>
-                        <span onclick="filterTodos('active')">Active</span>
-                        <span onclick="filterTodos('completed')">Completed</span>
-                    </div>
-                    <div class="clear-todos">
-                        <span onclick="clearCompletedTodos()">Clear Completed</span>
-                    </div>
+                
+            </div>
+            <div class="texts-info">
+                <div class="remaining-todos">
+                    4 todos left
+                </div>
+                <div class="todo-ranking">
+                    <span class="select" onclick="filterTodos('all')">All</span>
+                    <span onclick="filterTodos('active')">Active</span>
+                    <span onclick="filterTodos('completed')">Completed</span>
+                </div>
+                <div class="clear-todos">
+                    <span onclick="clearCompletedTodos()">Clear Completed</span>
                 </div>
             </div>
         </div> 

@@ -1,16 +1,18 @@
 function toggleMode() {
   const body = document.querySelector("body");
   const modeButton = document.querySelector(".mode img");
+  const themeStyle = document.getElementById("theme-style");
 
-  body.classList.toggle("dark-mode");
+  body.classList.toggle("light-mode");
 
-  if (body.classList.contains("dark-mode")) {
-    modeButton.src = "assets/icon-sun.svg";
-  } else {
+  if (body.classList.contains("light-mode")) {
     modeButton.src = "assets/icon-moon.svg";
+    themeStyle.href = "light-mode.css";
+  } else {
+    modeButton.src = "assets/icon-sun.svg";
+    themeStyle.href = "style.css";
   }
 }
-
 
 
 function addTodo(event) {
@@ -39,7 +41,6 @@ function getTodos(filterType) {
 function generateTodos(items,filterType) {
   let todosHTML = "";
   let remainingTodos=0;
-  filterType=="all"
   items.forEach((item) => {
     if (item.rank !== "completed") {
       remainingTodos++;
@@ -267,4 +268,4 @@ function filterTodos(filterType) {
 
 
 
-getTodos();
+getTodos("all");

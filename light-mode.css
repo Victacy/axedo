@@ -1,0 +1,10 @@
+/* Light Mode */
+body.light-mode {
+    background-color: #ffffff;
+    color: black;
+  }
+  
+  .background-image img {
+    object-position: center;
+  }
+  
