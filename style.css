@@ -97,7 +97,7 @@ button {
     width: 20px;
     height: 20px;
     border-radius: 15px;
-    border: 2px solid #21212C;
+    border: 2px solid #393a4c;
     cursor: pointer;
     transition: all 0.25s;
     display: flex;
