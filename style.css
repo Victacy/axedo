@@ -96,8 +96,8 @@ button {
 .marked {
     width: 20px;
     height: 20px;
-    border-radius: 3px;
-    border: 2px solid #393a4c;
+    border-radius: 15px;
+    border: 2px solid #21212C;
     cursor: pointer;
     transition: all 0.25s;
     display: flex;

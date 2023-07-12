@@ -2,17 +2,42 @@ function toggleMode() {
   const body = document.querySelector("body");
   const modeButton = document.querySelector(".mode img");
   const themeStyle = document.getElementById("theme-style");
+  const backgroundImage = document.querySelector(".background-image img");
+  const newList = document.querySelector(".new-list");
+  const todoTexts = document.querySelectorAll(".todo-text");
+  const textsInfo = document.querySelector(".texts-info");
 
   body.classList.toggle("light-mode");
 
   if (body.classList.contains("light-mode")) {
     modeButton.src = "assets/icon-moon.svg";
     themeStyle.href = "light-mode.css";
+    backgroundImage.src = "./assets/bg-desktop-light.jpg";
+    newList.style.backgroundColor = "#ffffff";
+    newList.style.color = "black";
+    todoTexts.forEach((todoText) => {
+      todoText.style.backgroundColor = "#ffffff";
+      todoText.style.color = "black";
+    });
+    textsInfo.style.backgroundColor = "#ffffff";
+    textsInfo.style.color = "black";
   } else {
     modeButton.src = "assets/icon-sun.svg";
     themeStyle.href = "style.css";
+    backgroundImage.src = "./assets/bg-desktop-dark.jpg";
+    newList.style.backgroundColor = "#21212C";
+    newList.style.color = "#eeeeee";
+    todoTexts.forEach((todoText) => {
+      todoText.style.backgroundColor = "#21212C";
+      todoText.style.color = "#eeeeee";
+    });
+    textsInfo.style.backgroundColor = "#25273C";
+    textsInfo.style.color = "#8585b3";
   }
 }
+
+
+
 
 
 function addTodo(event) {

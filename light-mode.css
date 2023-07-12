@@ -1,10 +1,31 @@
 /* Light Mode */
 body.light-mode {
-    background-color: #ffffff;
-    color: black;
-  }
-  
-  .background-image img {
-    object-position: center;
-  }
-  
+  background-color: #ffffff;
+  color: black;
+}
+
+.background-image img {
+  object-position: center;
+}
+
+.todo-list-items,
+.todo-texts,
+.texts-info {
+  background-color: #ffffff;
+  color: black;
+  box-shadow: 0px 2px 20px 0px #c7c7c7;
+}
+
+.text-item{
+  color: #141414;
+}
+
+.new-list,
+.todo-text {
+  background-color: #ffffff;
+  color: black;
+}
+
+.actions:hover delBtn {
+  color: black;
+}
