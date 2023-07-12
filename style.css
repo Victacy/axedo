@@ -10,6 +10,19 @@ body {
     font-size: 18px;
 }
 
+/* Dark Mode */
+body.dark-mode {
+    background-color: #161722;
+    color: white;
+  }
+  
+  /* Light Mode */
+  body.light-mode {
+    background-color: #ffffff;
+    color: black;
+  }
+  
+
 .background-image {
     position: absolute;
     top: 0;
@@ -26,24 +39,9 @@ body {
     object-position: left;
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background-color: #161722;
-    color: white;
-  }
-  
-  /* Light Mode */
-  body.light-mode {
-    background-color: #ffffff;
-    color: black;
-  }
-  
-  /* Toggle Mode Button */
-  .mode img {
+.mode img {
     cursor: pointer;
-    /* filter: invert(1); */
-  }
-  
+}
 
 .container {
     width: 100%;
@@ -78,6 +76,12 @@ button {
     outline: none;
     border: none;
     cursor: pointer;
+}
+
+.new-list,
+.todo-text,
+.texts-info {
+  background-color: #21212C;
 }
 
 .new-list {
@@ -229,25 +233,35 @@ button {
     color: #40fd3a;
 }
 
-.actions {
-    display: flex;
-    gap: 75px;
-    margin: 0 0.75rem;
-    padding: 1.5rem;
-    color: white;
+.clear-todos {
     cursor: pointer;
 }
 
-.actions:hover {
-    color: red;
-    border: none;
+.actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+    gap: 10px;
+    padding: 1.5rem;
+}
+
+.actions img{
+    width: 27px;
+    height: 27px;
+    visibility: hidden;
+}
+
+.actions:hover img {
+    filter: invert(1) grayscale(100%) brightness(200%);
     cursor: pointer;
+    visibility: visible;
 }
 
 .actions button:last-of-type {
     margin-right: 0;
 }
 
+/* Responsiveness */
 @media screen and (max-width: 768px) {
     .container {
         margin-top: 50px;

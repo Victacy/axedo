@@ -1,3 +1,18 @@
+function toggleMode() {
+  const body = document.querySelector("body");
+  const modeButton = document.querySelector(".mode img");
+
+  body.classList.toggle("dark-mode");
+
+  if (body.classList.contains("dark-mode")) {
+    modeButton.src = "assets/icon-sun.svg";
+  } else {
+    modeButton.src = "assets/icon-moon.svg";
+  }
+}
+
+
+
 function addTodo(event) {
   event.preventDefault();
   let text = document.getElementById("create-todo");
@@ -8,7 +23,7 @@ function addTodo(event) {
   text.value = "";
 }
 
-function getTodos() {
+function getTodos(filterType) {
   db.collection("todo-items").onSnapshot((snapshot) => {
     let items = [];
     snapshot.docs.forEach((doc) => {
@@ -17,32 +32,46 @@ function getTodos() {
         ...doc.data() //spread operator
       });
     });
-    generateTodos(items);
+    generateTodos(items,filterType);
   });
 }
 
-function generateTodos(items) {
+function generateTodos(items,filterType) {
   let todosHTML = "";
+  let remainingTodos=0;
+  filterType=="all"
   items.forEach((item) => {
-    todosHTML += `
-        <div class="todo-text" draggable="true" data-id="${item.id}">
-            <div class="mark">
-                <div data-id="${item.id}" class="marked ${item.rank == "completed" ? "checked":""}">
-                    <img src="./assets/icon-check.svg" alt="">
-                </div>
-            </div>
-            <div class="text-item ${item.rank == "completed" ? "checked":""}">
-                ${item.text}
-            </div>
-            <div class="actions "> 
-                <img src="./assets/icon-delete.svg" alt="" onclick="deleteTodo('${item.id}')">
-            </div>
-        </div>
-    `;
+    if (item.rank !== "completed") {
+      remainingTodos++;
+    }
+
+    if (
+      (filterType === "active" && item.rank === "active") ||
+      (filterType === "completed" && item.rank === "completed") ||
+      filterType === "all"
+    ){
+      todosHTML += `
+      <div class="todo-text" draggable="true" data-id="${item.id}">
+          <div class="mark">
+              <div data-id="${item.id}" class="marked ${item.rank == "completed" ? "checked":""}">
+                  <img src="./assets/icon-check.svg" alt="">
+              </div>
+          </div>
+          <div class="text-item ${item.rank == "completed" ? "checked":""}">
+              ${item.text}
+          </div>
+          <div class="actions"> 
+              <img src="./assets/icon-delete.svg" alt="" class="delBtn" onclick="deleteTodo('${item.id}')" >
+          </div>
+      </div>
+  `;  
+    }
   });
 
+
   document.querySelector(".todo-texts").innerHTML = todosHTML;
-  dragListeners()
+  document.querySelector(".remaining-todos").textContent = `${remainingTodos} todos left`; // Update the remaining todos count
+  dragListeners();
   actionListeners();
 }
 
@@ -57,6 +86,7 @@ function dragListeners() {
     todoText.addEventListener('dragend', dragEnd);
   });
 }
+
 
 let draggedItem;
 
@@ -80,7 +110,8 @@ function dragLeave() {
   this.style.borderTop = 'none';
 }
 
-function drop() {
+function drop(event) {
+  event.preventDefault();
   const targetItem = this;
   const targetIndex = getIndex(targetItem);
   const draggedIndex = getIndex(draggedItem);
@@ -96,11 +127,11 @@ function drop() {
   const draggedTodoItem = todoItems.find((item) => item.dataset.id === draggedItemDataId);
 
   if (targetIndex < draggedIndex) {
-    this.parentNode.insertBefore(draggedItem, targetItem.nextSibling);
+    targetItem.parentNode.insertBefore(draggedItem, targetItem.nextSibling);
     todoItems.splice(draggedIndex, 1);
     todoItems.splice(targetIndex + 1, 0, draggedTodoItem);
   } else {
-    this.parentNode.insertBefore(draggedItem, targetItem);
+    targetItem.parentNode.insertBefore(draggedItem, targetItem);
     todoItems.splice(draggedIndex, 1);
     todoItems.splice(targetIndex, 0, draggedTodoItem);
   }
@@ -118,8 +149,9 @@ function drop() {
     });
   });
 
-  this.style.borderTop = 'none';
+  targetItem.style.borderTop = 'none';
 }
+
 
 function dragEnd() {
   this.style.display = 'flex';
@@ -134,7 +166,7 @@ function actionListeners() {
         const id = deleteButton.parentNode.dataset.id;
         deleteTodo(id);
       } else {
-        markDone(checker.dataset.id);
+        toggleTodoStatus(checker.dataset.id);
       }
     });
   });
@@ -145,26 +177,37 @@ function actionListeners() {
   });
 }
 
-function markDone(id) {
-  let todo = db.collection("todo-items").doc(id);
 
-  todo.get().then(function (doc) {
-    if (doc.exists) {
-      let rank = doc.data().rank;
-      if (rank === "active") {
-        todo.update({
-          rank: "completed",
-        });
-      } else if (rank === "completed") {
-        todo.update({
-          rank: "active",
-        });
-      }
+function toggleTodoStatus(id, currentRank) {
+  const todo = db.collection("todo-items").doc(id);
+  const newRank = currentRank === "completed" ? "active" : "completed";
+  
+  todo.update({
+    rank: newRank,
+  })
+  .then(function() {
+    swapRanks(id, null);
+  })
+  .catch(function(error) {
+    console.error("Error updating todo status: ", error);
+  });
+}
+
+function swapRanks(droppedItemId, targetItemId) {
+  const todosRef = db.collection("todo-items");
+
+  todosRef.doc(droppedItemId).get().then((droppedItemDoc) => {
+    const droppedRank = droppedItemDoc.data().rank;
+    
+    todosRef.doc(droppedItemId).update({ rank: targetItemId ? "active" : "completed" });
+
+    if (targetItemId) {
+      todosRef.doc(targetItemId).update({ rank: droppedRank });
     }
   });
-
-  swapRanks(id, null);
 }
+
+
 
 function swapRanks(droppedItemId, targetItemId) {
   const todosRef = db.collection("todo-items");
@@ -192,6 +235,7 @@ function deleteTodo(id) {
     });
 }
 
+
 function clearCompletedTodos() {
   db.collection("todo-items")
     .where("rank", "==", "completed")
@@ -206,6 +250,7 @@ function clearCompletedTodos() {
     });
 }
 
+
 function getIndex(element) {
   let index = 0;
   while ((element = element.previousElementSibling)) {
@@ -216,21 +261,10 @@ function getIndex(element) {
 
 function filterTodos(filterType) {
   currentFilter = filterType;
-  getTodos();
+  getTodos(filterType);
 }
 
-function toggleMode() {
-  const body = document.querySelector("body");
-  const modeButton = document.querySelector(".mode img");
 
-  body.classList.toggle("dark-mode");
-
-  if (body.classList.contains("dark-mode")) {
-    modeButton.src = "assets/icon-sun.svg";
-  } else {
-    modeButton.src = "assets/icon-moon.svg";
-  }
-}
 
 
 getTodos();
